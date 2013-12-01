@@ -102,7 +102,7 @@
               height: 338,
               size: 30
             });
-            instance.pixelate();
+            $('#waves').on('load', instance.pixelate.bind(instance));
             $('#images-output').append(instance.el);
           })();
           </script>
