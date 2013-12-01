@@ -12,6 +12,8 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="javascripts/Pixelator.js"></script>
 
     <title>Pixelator.js by iammerrick</title>
   </head>
@@ -28,6 +30,7 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
+
           <h3>
 <a name="pixelatorjs" class="anchor" href="#pixelatorjs"><span class="octicon octicon-link"></span></a>Pixelator.js</h3>
 
@@ -47,6 +50,62 @@
 <span class="c1">// The canvas with all that awesome pixelation is stored in instance.el.</span>
 <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
 </pre></div>
+
+          <h3>Pixelation of Video</h3>
+          <video width="600px" height="480px"></video>
+          <div id="video-output"></div>
+
+          <script>
+          (function(){
+            var PIXEL_SIZE = 10;
+
+            navigator.getMedia = ( navigator.getUserMedia ||
+                                  navigator.webkitGetUserMedia ||
+                                  navigator.mozGetUserMedia ||
+                                  navigator.msGetUserMedia);
+
+            navigator.getMedia ({
+              video: true,
+              audio: false
+              }, function(localMediaStream) {
+                var video = document.querySelector('video');
+                video.src = URL.createObjectURL(localMediaStream);
+                video.play();
+            });
+
+            var video = document.querySelector('video');
+            var instance = new Pixelator({
+              target: video,
+              width: video.width,
+              height: video.height,
+              size: PIXEL_SIZE
+            });
+
+            $('#video-output').append(instance.el);
+
+            requestAnimationFrame(function draw() {
+              if (video.paused || video.ended)  return requestAnimationFrame(draw);
+              instance.pixelate();
+              
+              requestAnimationFrame(draw);
+            });
+          })();
+          </script>
+          <h3>Pixelation of Image</h3>
+          <img src="images/wave.png" id="waves"/>
+          <div id="images-output"></div>
+          <script>
+          (function() {
+            var instance = new Pixelator({
+              target: document.getElementById('waves'),
+              width: 600,
+              height: 338,
+              size: 30
+            });
+            instance.pixelate();
+            $('#images-output').append(instance.el);
+          })();
+          </script>
         </section>
 
         <aside id="sidebar">
