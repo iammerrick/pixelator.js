@@ -24,9 +24,9 @@
 
   function Pixelator(options) {
     this.target = options.target;
-    this.el = $('<canvas />').get(0);
-    this.el.width = options.width;
-    this.el.height = options.height;
+    this.el = document.createElement('canvas');
+    this.el.width = options.width || options.target.width;
+    this.el.height = options.height || options.target.height;
 
     this.context = this.el.getContext('2d');
     this.size = options.size || 40;
@@ -35,7 +35,7 @@
   Pixelator.prototype.pixelate = function() {
     this.context.drawImage(this.target, 0, 0, this.el.width, this.el.height);
 
-    this.pixels = this.pixelationOf(this.context.getImageData(0, 0, this.el.width, this.el.height))
+    this.pixels = this.pixelationOf(this.context.getImageData(0, 0, this.el.width, this.el.height));
 
     this.pixels.forEach(function(pixel) {
       pixel.draw();
