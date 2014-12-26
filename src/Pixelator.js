@@ -8,6 +8,15 @@
   }
 }(this, function() {
 
+  function getCanvas() {
+    if (typeof exports === 'object') {
+      var Canvas = require('canvas');
+      return new Canvas();
+    } else {
+      return document.createElement('canvas');
+    }
+  }
+
   function Pixel(context, x, y, width, height, style) {
     this.context = context;
     this.x = x;
@@ -24,7 +33,7 @@
 
   function Pixelator(options) {
     this.target = options.target;
-    this.el = document.createElement('canvas');
+    this.el = getCanvas();
     this.el.width = options.width || options.target.width;
     this.el.height = options.height || options.target.height;
 
@@ -93,7 +102,7 @@
   };
 
   Pixelator.prototype.getImageData = function(image) {
-    var canvas = document.createElement('canvas');
+    var canvas = getCanvas();
     var context = canvas.getContext('2d');
     canvas.width = image.width;
     canvas.height = image.height;

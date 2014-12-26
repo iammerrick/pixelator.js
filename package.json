@@ -1,0 +1,19 @@
+{
+  "name": "pixelator.js",
+  "version": "1.0.2",
+  "description": "pixelator.js ============",
+  "main": "src/Pixelator.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iammerrick/pixelator.js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iammerrick/pixelator.js/issues"
+  },
+  "homepage": "https://github.com/iammerrick/pixelator.js",
+  "dependencies": {
+    "canvas": "^1.1.6"
+  }
+}
